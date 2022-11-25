@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import Heading from "../../components/ui/heading";
 
 const Category = () => {
@@ -14,6 +15,7 @@ const Category = () => {
 };
 
 export default Category;
+const date = format(new Date(), "PP");
 const Card = () => {
   return (
     <>
@@ -23,11 +25,13 @@ const Card = () => {
         </figure>
         <div className='card-body'>
           <h2 className='card-title'>New movie is released!</h2>
-          <p>Faridpur</p>
+          <p>Posted by: Rakibul Islam</p>
           <div className='flex w-max gap-20'>
             <p>Price: 50</p> <p>Original price: 150</p>
           </div>
-          <p>Seller: Rakibul Islam</p>
+          <p>Used: 6month</p>
+          <p>{date}</p>
+          <p>Faridpur</p>
           <div className='card-actions justify-end'>
             <button className='btn btn-primary'>Order now</button>
           </div>

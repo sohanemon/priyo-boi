@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Header = () => {
   return (
     <>
@@ -27,7 +29,9 @@ const Header = () => {
               {navItem}
             </ul>
           </div>
-          <a className='btn btn-ghost normal-case text-xl'>Priyo Boi</a>
+          <Link to={"/"} className=' normal-case text-xl'>
+            Priyo Boi
+          </Link>
         </div>
         <div className='navbar-center hidden lg:flex'>
           <ul className='menu menu-horizontal p-0'>{navItem}</ul>
