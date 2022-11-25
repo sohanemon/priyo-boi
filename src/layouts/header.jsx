@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/auth-provider";
 
 const Header = () => {
+  const { user, logOut } = useAuth();
   return (
     <>
       <div className='navbar bg-base-100 '>
@@ -37,9 +39,15 @@ const Header = () => {
           <ul className='menu menu-horizontal p-0'>{navItem}</ul>
         </div>
         <div className='navbar-end'>
-          <Link to={"/login"} className='btn'>
-            Login
-          </Link>
+          {user?.uid ? (
+            <button className='btn btn-error btn-sm' onClick={logOut}>
+              Logout
+            </button>
+          ) : (
+            <Link to={"/login"} className='btn btn-sm'>
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </>
@@ -50,10 +58,10 @@ export default Header;
 const navItem = (
   <>
     <li>
-      <a>Item 1</a>
-    </li>
-    <li>
       <a>Item 3</a>
+    </li>{" "}
+    <li>
+      <Link to='/dashboard'>Dashboard</Link>
     </li>
   </>
 );
