@@ -1,10 +1,16 @@
+import { async } from "@firebase/util";
 import axios from "axios";
+import { format } from "date-fns";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useAuth } from "../../context/auth-provider";
 import useCategory from "../../hooks/useCategory";
 import { server } from "../../lib/axios-client";
 
 const AddProduct = () => {
+  const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
   const categories = useCategory();
   const {
     register,
@@ -16,19 +22,34 @@ const AddProduct = () => {
       toast.error("Check the categories/conditions");
       return;
     }
-    console.log(data);
+    setLoading(true);
     const formData = new FormData();
     formData.append("image", data.image[0]);
-    axios
-      .post(
-        `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_imgbb_api}`,
-        formData
+    toast
+      .promise(
+        axios.post(
+          `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_imgbb_api}`,
+          formData
+        ),
+        {
+          error: "error",
+          success: "success",
+          loading: "loading",
+        }
       )
       .then((res) => {
         server
-          .post("books", { ...data, image: res.data.data.url })
-          .then((res) => console.log(res));
-      });
+          .post("books", {
+            ...data,
+            image: res.data.data.url,
+            addedBy: user?.email,
+            available: true,
+            date: format(new Date(), "PP"),
+          })
+          .then((res) => setLoading(false))
+          .catch(() => setLoading(false));
+      })
+      .catch(() => setLoading(false));
   };
 
   return (
@@ -38,7 +59,6 @@ const AddProduct = () => {
         <div className='flex [&>*]:grow gap-5'>
           <div className='form-control'>
             <label className='label'>
-              <span className='label-text'>Book name</span>{" "}
               <span className='text-error'>{errors?.bookName?.message}</span>
             </label>
             <input
@@ -46,13 +66,12 @@ const AddProduct = () => {
                 required: "bookName is required",
               })}
               type='text'
-              placeholder='Padma Nodir Majhi'
+              placeholder='Book name'
               className='input input-bordered'
             />
           </div>
           <div className='form-control'>
             <label className='label'>
-              <span className='label-text'>Author/Publication</span>{" "}
               <span className='text-error'>{errors?.bookAuthor?.message}</span>
             </label>
             <input
@@ -60,7 +79,7 @@ const AddProduct = () => {
                 required: "bookAuthor is required",
               })}
               type='text'
-              placeholder='Manik Bandapaddhaya'
+              placeholder='Author'
               className='input input-bordered'
             />
           </div>
@@ -69,7 +88,6 @@ const AddProduct = () => {
         <div className='flex [&>*]:grow gap-5'>
           <div className='form-control'>
             <label className='label'>
-              <span className='label-text'>Category</span>{" "}
               <span className='text-error'>{errors?.category_id?.message}</span>
             </label>
             <select
@@ -91,7 +109,6 @@ const AddProduct = () => {
           </div>
           <div className='form-control '>
             <label className='label'>
-              <span className='label-text'>Condition</span>{" "}
               <span className='text-error'>{errors?.condition?.message}</span>
             </label>
             <select
@@ -111,7 +128,6 @@ const AddProduct = () => {
           </div>
           <div className='form-control'>
             <label className='label'>
-              <span className='label-text'>Cover Image</span>
               <span className='text-error'>{errors?.image?.message}</span>
             </label>
             <input
@@ -127,7 +143,6 @@ const AddProduct = () => {
         <div className='flex [&>*]:grow gap-5'>
           <div className='form-control'>
             <label className='label'>
-              <span className='label-text'>Phone Number</span>{" "}
               <span className='text-error'>{errors?.number?.message}</span>
             </label>
             <input
@@ -135,13 +150,12 @@ const AddProduct = () => {
                 required: "Number is required",
               })}
               type='number'
-              placeholder='01626420807'
+              placeholder='Phone number'
               className='input input-bordered'
             />
           </div>
           <div className='form-control'>
             <label className='label'>
-              <span className='label-text'>Location</span>{" "}
               <span className='text-error'>{errors?.location?.message}</span>
             </label>
             <input
@@ -149,7 +163,7 @@ const AddProduct = () => {
                 required: "Location is required",
               })}
               type='text'
-              placeholder='Jhenaidaha'
+              placeholder='Location'
               className='input input-bordered'
             />
           </div>
@@ -158,7 +172,6 @@ const AddProduct = () => {
         <div className='flex [&>*]:grow gap-5'>
           <div className='form-control'>
             <label className='label'>
-              <span className='label-text'>Resale Price</span>{" "}
               <span className='text-error'>{errors?.resalePrice?.message}</span>
             </label>
             <input
@@ -166,13 +179,12 @@ const AddProduct = () => {
                 required: "resalePrice is required",
               })}
               type='number'
-              placeholder='123'
+              placeholder='Resale Price'
               className='input input-bordered'
             />
           </div>
           <div className='form-control'>
             <label className='label'>
-              <span className='label-text'>Original Price</span>{" "}
               <span className='text-error'>
                 {errors?.originalPrice?.message}
               </span>
@@ -182,13 +194,12 @@ const AddProduct = () => {
                 required: "originalPrice is required",
               })}
               type='number'
-              placeholder='123'
+              placeholder='Original Price'
               className='input input-bordered'
             />
           </div>
           <div className='form-control'>
             <label className='label'>
-              <span className='label-text'>Purchase year</span>{" "}
               <span className='text-error'>
                 {errors?.yearOfPurchase?.message}
               </span>
@@ -198,20 +209,19 @@ const AddProduct = () => {
                 required: "yearOfPurchase is required",
               })}
               type='number'
-              placeholder='2016'
+              placeholder='Purchase year'
               className='input input-bordered'
             />
           </div>
         </div>
         <div className='form-control'>
           <label className='label'>
-            <span className='label-text'>Description</span>{" "}
             <span className='text-error'>{errors?.description?.message}</span>
           </label>
           <textarea
             {...register("description")}
             className='textarea textarea-bordered w-full'
-            placeholder='Something relevant to your book.'
+            placeholder='Description'
           ></textarea>
         </div>
         <button className='btn btn-primary  w-full mt-10 rounded-lg'>
