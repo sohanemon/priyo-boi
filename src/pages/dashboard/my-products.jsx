@@ -1,0 +1,23 @@
+import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "../../context/auth-provider";
+import { server } from "../../lib/axios-client";
+import { ProductCard } from "./product-card";
+
+const MyProducts = () => {
+  const { user, loading } = useAuth();
+  const { data, loading: booksLoading } = useQuery(
+    ["books"],
+    () => !loading && server.get(`books?email=${user?.email}`)
+  );
+  console.log(data);
+  if (data?.data.length)
+    return (
+      <div className='space-y-5'>
+        {data.data.map((_) => (
+          <ProductCard />
+        ))}
+      </div>
+    );
+};
+
+export default MyProducts;

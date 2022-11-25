@@ -4,12 +4,13 @@ import { format } from "date-fns";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/auth-provider";
 import useCategory from "../../hooks/useCategory";
 import { server } from "../../lib/axios-client";
 
 const AddProduct = () => {
-  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const { user } = useAuth();
   const categories = useCategory();
   const {
@@ -22,7 +23,6 @@ const AddProduct = () => {
       toast.error("Check the categories/conditions");
       return;
     }
-    setLoading(true);
     const formData = new FormData();
     formData.append("image", data.image[0]);
     toast
@@ -46,10 +46,8 @@ const AddProduct = () => {
             available: true,
             date: format(new Date(), "PP"),
           })
-          .then((res) => setLoading(false))
-          .catch(() => setLoading(false));
-      })
-      .catch(() => setLoading(false));
+          .then(() => navigate("/dashboard/my-products"));
+      });
   };
 
   return (

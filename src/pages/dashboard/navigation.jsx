@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavL, NavLink, NavLinkinkNavLink } from "react-router-dom";
 import { useAuth } from "../../context/auth-provider";
 
 const Navigation = () => {
@@ -7,22 +7,69 @@ const Navigation = () => {
     <>
       <div className='btm-nav static'>
         {user?.typeOfUser === "buyer" && (
-          <Link className='border-red-300 m-3'>My orders</Link>
+          <NavLink
+            to={"my-orders"}
+            className={({ isActive }) =>
+              isActive ? "[&>button]:btn-primary" : ""
+            }
+          >
+            <button className='btn'>My orders</button>
+          </NavLink>
         )}
         {user?.typeOfUser === "seller" && (
           <>
-            <Link to={"/dashboard/add-product"} className='border-red-300 m-3'>
-              Add a product
-            </Link>
-            <Link className='border-red-300 m-3'>My products</Link>
-            <Link className='border-red-300 m-3'>My Buyers</Link>
+            <NavLink
+              to={"/dashboard/add-product"}
+              className={({ isActive }) =>
+                isActive ? "[&>button]:btn-primary" : ""
+              }
+            >
+              <button className='btn'>Add a product</button>
+            </NavLink>
+            <NavLink
+              to={"my-products"}
+              className={({ isActive }) =>
+                isActive ? "[&>button]:btn-primary" : ""
+              }
+            >
+              <button className='btn'>My products</button>
+            </NavLink>
+            <NavLink
+              to='my-buyers'
+              className={({ isActive }) =>
+                isActive ? "[&>button]:btn-primary" : ""
+              }
+            >
+              <button className='btn'>My Buyers</button>
+            </NavLink>
           </>
         )}
         {user?.typeOfUser === "admin" && (
           <>
-            <Link className='border-red-300 m-3'>All Sellers</Link>
-            <Link className='border-red-300 m-3'>All Buyers</Link>
-            <Link className='border-red-300 m-3'>Reported Items</Link>
+            <NavLink
+              to={"all-sellers"}
+              className={({ isActive }) =>
+                isActive ? "[&>button]:btn-primary" : ""
+              }
+            >
+              <button className='btn'>All Sellers</button>
+            </NavLink>
+            <NavLink
+              to={"all-buyers"}
+              className={({ isActive }) =>
+                isActive ? "[&>button]:btn-primary" : ""
+              }
+            >
+              <button className='btn'>All Buyers</button>
+            </NavLink>
+            <NavLink
+              to={"reported"}
+              className={({ isActive }) =>
+                isActive ? "[&>button]:btn-primary" : ""
+              }
+            >
+              <button className='btn'>Reported Items</button>
+            </NavLink>
           </>
         )}
       </div>
