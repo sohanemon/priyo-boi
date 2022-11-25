@@ -7,9 +7,11 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/auth-provider";
 import useCategory from "../../hooks/useCategory";
+import useToTop from "../../hooks/usToTop";
 import { server } from "../../lib/axios-client";
 
 const AddProduct = () => {
+  useToTop();
   const navigate = useNavigate();
   const { user } = useAuth();
   const categories = useCategory();

@@ -61,7 +61,7 @@ const navItem = (
       <a>Item 3</a>
     </li>{" "}
     <li>
-      <Link to='/dashboard'>Dashboard</Link>
+      <Link to='/dashboard/my-products'>Dashboard</Link>
     </li>
   </>
 );

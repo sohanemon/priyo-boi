@@ -1,14 +1,18 @@
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import Heading from "../../components/ui/heading";
+import useCategory from "../../hooks/useCategory";
+import { server } from "../../lib/axios-client";
 
 const Categories = () => {
+  const categories = useCategory();
   return (
     <>
       <Heading desc='Browse books by categories '>Categories</Heading>
 
       <div className='grid grid-cols-4 gap-5'>
-        {[...Array(10).keys()].map((_) => (
-          <Card key={_} />
+        {categories?.map((_) => (
+          <Card key={_._id} {..._} />
         ))}
       </div>
     </>
@@ -17,20 +21,14 @@ const Categories = () => {
 
 export default Categories;
 
-const Card = () => {
+const Card = ({ name, _id }) => {
   return (
-    <Link to={"/category/1"}>
-      <div className='card card-side bg-base-100 shadow-md px-4'>
-        <figure>
-          <img
-            src='https://placeimg.com/200/280/arch'
-            alt='Movie'
-            className='rounded-full h-20 w-20'
-          />
-        </figure>
-        <div className='card-body'>
-          <h2 className='card-title'>Comics</h2>
-          <p>10</p>
+    <Link to={`/category/${_id}`}>
+      <div className=' h-full card card-side bg-base-100 group shadow-md px-4'>
+        <div className='grid place-content-center py-2'>
+          <h2 className='card-title text-sm px-3 group-hover:text-white'>
+            {name}
+          </h2>
         </div>
       </div>
     </Link>

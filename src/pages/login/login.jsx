@@ -64,7 +64,7 @@ const Login = ({ reg }) => {
             email: user.email,
             thumbnail: user.photoURL,
             uid: user.uid,
-            typeOfUser: "seller",
+            typeOfUser: "buyer",
           })
           .then((res) => {
             setLoading(false);
@@ -132,7 +132,7 @@ const Login = ({ reg }) => {
                 <span className='text-error'>{errors?.location?.message}</span>
               </label>
               <select
-                defaultValue={"seller"}
+                defaultValue={"buyer"}
                 {...register("typeOfUser")}
                 className='select w-full'
               >

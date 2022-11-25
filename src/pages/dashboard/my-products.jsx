@@ -5,16 +5,15 @@ import { ProductCard } from "./product-card";
 
 const MyProducts = () => {
   const { user, loading } = useAuth();
-  const { data, loading: booksLoading } = useQuery(
+  const { data } = useQuery(
     ["books"],
     () => !loading && server.get(`books?email=${user?.email}`)
   );
-  console.log(data);
   if (data?.data.length)
     return (
       <div className='space-y-5'>
         {data.data.map((_) => (
-          <ProductCard />
+          <ProductCard key={_._id} {..._} />
         ))}
       </div>
     );
