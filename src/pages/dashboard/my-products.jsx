@@ -5,7 +5,7 @@ import { ProductCard } from "./product-card";
 
 const MyProducts = () => {
   const { user, loading } = useAuth();
-  const { data } = useQuery(
+  const { data, refetch } = useQuery(
     ["books"],
     () => !loading && server.get(`books?email=${user?.email}`)
   );
@@ -13,7 +13,7 @@ const MyProducts = () => {
     return (
       <div className='space-y-5'>
         {data.data.map((_) => (
-          <ProductCard key={_._id} {..._} />
+          <ProductCard refetch={refetch} key={_._id} {..._} />
         ))}
       </div>
     );

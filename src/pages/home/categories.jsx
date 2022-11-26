@@ -26,7 +26,7 @@ const Card = ({ name, _id }) => {
     <Link to={`/category/${_id}`}>
       <div className=' h-full card card-side bg-base-100 group shadow-md px-4'>
         <div className='grid place-content-center py-2'>
-          <h2 className='card-title text-sm px-3 group-hover:text-white'>
+          <h2 className='card-title text-sm py-1 px-3 group-hover:text-white'>
             {name}
           </h2>
         </div>

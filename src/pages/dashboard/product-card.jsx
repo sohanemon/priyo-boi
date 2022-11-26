@@ -1,14 +1,17 @@
 import toast from "react-hot-toast";
 import { server } from "../../lib/axios-client";
 
-export const ProductCard = ({ bookName, image, available, _id }) => {
-  console.log(_id);
+export const ProductCard = ({ bookName, image, available, _id, refetch }) => {
   const handleAd = () => {
     toast.promise(server.get(`/ad/${_id}`), {
       loading: "sending",
       success: "added to homepage",
       error: "try again",
     });
+  };
+  const handleRemove = () => {
+    const confirmation = window.confirm("are you sure?");
+    if (confirmation) server.delete(`book/${_id}`).then((res) => refetch());
   };
 
   return (
@@ -35,7 +38,9 @@ export const ProductCard = ({ bookName, image, available, _id }) => {
             >
               Show in homepage
             </button>
-            <button className='btn btn-primary btn-xs'>Change details</button>
+            <button onClick={handleRemove} className='btn btn-error btn-xs'>
+              Remove this book
+            </button>
           </div>
         </div>
       </div>
