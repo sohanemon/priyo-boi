@@ -59,7 +59,14 @@ const AuthProvider = ({ children }) => {
 
   return (
     <Auth.Provider
-      value={{ isLoading, user, logOut, googleLogin, emailSignUp, emailLogin }}
+      value={{
+        isLoading,
+        user,
+        logOut,
+        googleLogin,
+        emailSignUp,
+        emailLogin,
+      }}
     >
       {children}
     </Auth.Provider>

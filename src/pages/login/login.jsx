@@ -45,12 +45,14 @@ const Login = ({ reg }) => {
               })
               .then((res) => {
                 setLoading(false);
+                window.location.pathname = "/";
               });
           });
       })
       .catch((err) => {
         setFirebaseError(sliceFirebaseError(err));
         setLoading(false);
+        window.location.pathname = "/";
       });
   };
   const handleGoogleLogin = (e) => {
