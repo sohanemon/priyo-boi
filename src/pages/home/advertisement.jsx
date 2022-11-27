@@ -7,18 +7,19 @@ const Advertisement = () => {
   const { data } = useQuery(["ad"], () => {
     return server.get("ad");
   });
-  return (
-    <>
-      <Heading desc='Get the greatest deals with awesome books'>
-        Best Deals
-      </Heading>
-      <div className='grid grid-cols-3 gap-5'>
-        {data?.data?.map((_) => (
-          <Card key={_._id} {..._} />
-        ))}
-      </div>
-    </>
-  );
+  if (data?.data?.length)
+    return (
+      <>
+        <Heading desc='Get the greatest deals with awesome books'>
+          Best Deals
+        </Heading>
+        <div className='grid grid-cols-3 gap-5'>
+          {data.data.map((_) => (
+            <Card key={_._id} {..._} />
+          ))}
+        </div>
+      </>
+    );
 };
 
 export default Advertisement;

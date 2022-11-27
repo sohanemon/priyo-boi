@@ -1,4 +1,4 @@
-import { NavL, NavLink, NavLinkinkNavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/auth-provider";
 
 const Navigation = () => {
@@ -7,14 +7,24 @@ const Navigation = () => {
     <>
       <div className='btm-nav static'>
         {user?.typeOfUser === "buyer" && (
-          <NavLink
-            to={"my-orders"}
-            className={({ isActive }) =>
-              isActive ? "[&>button]:btn-primary" : ""
-            }
-          >
-            <button className='btn'>My orders</button>
-          </NavLink>
+          <>
+            <NavLink
+              to={"my-orders"}
+              className={({ isActive }) =>
+                isActive ? "[&>button]:btn-primary" : ""
+              }
+            >
+              <button className='btn'>My orders</button>
+            </NavLink>
+            <NavLink
+              to={"my-wishlist"}
+              className={({ isActive }) =>
+                isActive ? "[&>button]:btn-primary" : ""
+              }
+            >
+              <button className='btn'>My wishlist</button>
+            </NavLink>
+          </>
         )}
         {user?.typeOfUser === "seller" && (
           <>
