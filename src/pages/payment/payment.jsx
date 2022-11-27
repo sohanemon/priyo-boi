@@ -39,7 +39,7 @@ const Payment = () => {
     <div className='max-w-xl mx-auto bg-base-300 p-10 rounded-xl shadow-lg'>
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm clientSecret={clientSecret} />
+          <CheckoutForm id={id} clientSecret={clientSecret} />
         </Elements>
       )}
     </div>

@@ -1,10 +1,8 @@
-import ProductTable from "../../components/product-table";
 import WishlistCard from "../../components/ui/card/wishlist-card";
 import { useAuth } from "../../context/auth-provider";
 
 const MyWishlist = () => {
   const { user } = useAuth();
-  console.log(user?.wishlist);
   return (
     <>
       <div>

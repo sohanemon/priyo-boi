@@ -30,12 +30,18 @@ const WishlistCard = ({ id }) => {
             <p className=''>{book.resalePrice}</p>
           </td>
           <td>
-            <Link
-              to={`/payment/${book._id}`}
-              className='btn btn-xs btn-success'
-            >
-              Pay
-            </Link>
+            {book.available ? (
+              <Link
+                to={`/payment/${book._id}`}
+                className='btn btn-xs btn-success'
+              >
+                Pay
+              </Link>
+            ) : (
+              <button disabled='disabled' className='btn btn-xs btn-success'>
+                Paid
+              </button>
+            )}
           </td>
         </tr>
       </>

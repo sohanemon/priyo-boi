@@ -5,8 +5,9 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import toast from "react-hot-toast";
+import { server } from "../../lib/axios-client";
 
-export default function CheckoutForm() {
+export default function CheckoutForm({ id }) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -48,17 +49,22 @@ export default function CheckoutForm() {
     e.preventDefault();
 
     if (!stripe || !elements) {
-      // Stripe.js has not yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
-    for (let x = 0; x < 100; x++) console.log("first" + x);
-    setIsLoading(true);
 
+    setIsLoading(true);
+    toast
+      .promise(server.put(`payment-success/${id}`), {
+        error: "error",
+        success: "success",
+        loading: "loading",
+      })
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error));
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "http://localhost:3000",
+        return_url: "http://localhost:3000/dashboard/my-orders",
       },
     });
 
