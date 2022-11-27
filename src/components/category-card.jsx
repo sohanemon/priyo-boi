@@ -1,4 +1,8 @@
+import { useAuth } from "../context/auth-provider";
+import placeOrder from "../utils/place-order";
+
 export const Card = ({
+  _id,
   bookName,
   bookAuthor,
   image,
@@ -10,6 +14,7 @@ export const Card = ({
   condition,
   yearOfPurchase,
 }) => {
+  const { user } = useAuth();
   return (
     <>
       <div className='card card-side bg-base-100 shadow-xl'>
@@ -27,7 +32,20 @@ export const Card = ({
           <p>Location: {location}</p>
           <p>Published on: {date}</p>
           <div className='card-actions justify-end'>
-            <button className='btn btn-primary btn-sm'>Order now</button>
+            <button
+              className='btn btn-primary btn-sm'
+              onClick={() =>
+                placeOrder(
+                  _id,
+                  addedBy,
+                  resalePrice,
+                  user?.email,
+                  user?.typeOfUser
+                )
+              }
+            >
+              Order now
+            </button>
           </div>
         </div>
       </div>

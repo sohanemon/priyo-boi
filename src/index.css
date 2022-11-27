@@ -16,7 +16,7 @@
 }
 @layer components {
   .btn {
-    @apply rounded-full;
+    @apply rounded-full px-6;
     height: 34px !important;
   }
 }

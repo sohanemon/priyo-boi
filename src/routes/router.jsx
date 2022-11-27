@@ -8,6 +8,7 @@ import AllSellers from "../pages/dashboard/all-sellers";
 import MyBuyers from "../pages/dashboard/my-buyers";
 import MyOrders from "../pages/dashboard/my-orders";
 import MyProducts from "../pages/dashboard/my-products";
+import MyWishlist from "../pages/dashboard/my-wishlist";
 import ReportedItems from "../pages/dashboard/reported-items";
 import Home from "../pages/home";
 import Login from "../pages/login/login";
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/reported",
             element: <ReportedItems />,
+          },
+          {
+            path: "/dashboard/my-wishlist",
+            element: <MyWishlist />,
           },
         ],
       },

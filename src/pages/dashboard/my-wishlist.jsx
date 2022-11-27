@@ -1,14 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
 import ProductTable from "../../components/product-table";
+import WishlistCard from "../../components/ui/card/wishlist-card";
 import { useAuth } from "../../context/auth-provider";
-import { server } from "../../lib/axios-client";
 
-const MyOrders = () => {
+const MyWishlist = () => {
   const { user } = useAuth();
-  const { data, refetch } = useQuery(["my-orders"], () =>
-    server.get(`order?email=${user?.email}`)
-  );
-  console.log(data?.data);
+  console.log(user?.wishlist);
   return (
     <>
       <div>
@@ -16,7 +12,6 @@ const MyOrders = () => {
           <table className='table w-full'>
             <thead>
               <tr className='text-center'>
-                <th></th>
                 <th>Book name</th>
                 <th>Seller</th>
                 <th>Price</th>
@@ -24,8 +19,8 @@ const MyOrders = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.data?.map((_, i) => (
-                <ProductTable i={i} key={_._id} {..._} refetch={refetch} />
+              {user?.wishlist?.map((_, i) => (
+                <WishlistCard i={i} key={_} id={_} />
               ))}
             </tbody>
           </table>
@@ -35,4 +30,4 @@ const MyOrders = () => {
   );
 };
 
-export default MyOrders;
+export default MyWishlist;
