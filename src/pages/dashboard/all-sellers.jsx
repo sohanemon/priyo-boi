@@ -14,11 +14,12 @@ const AllSellers = () => {
               <th>Name</th>
               <th>Email</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {seller?.map((_, i) => (
-              <UserTable i={i} key={_._id} {..._} refetch={refetch} />
+              <UserTable i={i} key={_._id} {..._} refetch={refetch} seller />
             ))}
           </tbody>
         </table>

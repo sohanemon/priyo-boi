@@ -1,8 +1,20 @@
 import React from "react";
 import { server } from "../lib/axios-client";
-export function UserTable({ i, uid, thumbnail, name, email, refetch }) {
+export function UserTable({
+  i,
+  uid,
+  thumbnail,
+  name,
+  email,
+  refetch,
+  seller,
+  verified,
+}) {
   const handleDeleteUser = () => {
     server.delete(`user/${uid}`).then(() => refetch());
+  };
+  const handleVerifyUser = () => {
+    server.put(`user/${uid}`).then((_) => refetch());
   };
 
   return (
@@ -23,6 +35,17 @@ export function UserTable({ i, uid, thumbnail, name, email, refetch }) {
       <td>
         <p className=''>{email}</p>
       </td>
+      {seller && (
+        <td>
+          <button
+            onClick={handleVerifyUser}
+            disabled={verified}
+            className='btn btn-xs btn-success'
+          >
+            {verified ? "Verified" : "Verify"}
+          </button>
+        </td>
+      )}
       <td>
         <button onClick={handleDeleteUser} className='btn btn-xs btn-error'>
           Delete
