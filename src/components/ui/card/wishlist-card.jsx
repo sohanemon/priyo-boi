@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 import { server } from "../../../lib/axios-client";
 
 const WishlistCard = ({ id }) => {
@@ -6,7 +7,6 @@ const WishlistCard = ({ id }) => {
     server.get(`book/${id}`)
   );
   const book = data?.data;
-  console.log(book);
   if (data?.data?._id)
     return (
       <>
@@ -30,7 +30,12 @@ const WishlistCard = ({ id }) => {
             <p className=''>{book.resalePrice}</p>
           </td>
           <td>
-            <button className='btn btn-xs btn-success'>Pay</button>
+            <Link
+              to={`/payment/${book._id}`}
+              className='btn btn-xs btn-success'
+            >
+              Pay
+            </Link>
           </td>
         </tr>
       </>

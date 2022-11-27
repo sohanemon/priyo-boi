@@ -12,6 +12,7 @@ import MyWishlist from "../pages/dashboard/my-wishlist";
 import ReportedItems from "../pages/dashboard/reported-items";
 import Home from "../pages/home";
 import Login from "../pages/login/login";
+import Payment from "../pages/payment/payment";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "/category/:id",
         element: <Category />,
+      },
+      {
+        path: "/payment/:id",
+        element: <Payment />,
       },
       {
         path: "/dashboard",

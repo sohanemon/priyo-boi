@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
+
 const ProductTable = ({ i, bookData, seller, price, refetch }) => {
-  const { bookName, image } = bookData;
+  const { bookName, image, _id } = bookData;
 
   return (
     <>
@@ -24,7 +26,9 @@ const ProductTable = ({ i, bookData, seller, price, refetch }) => {
           <p className=''>{price}</p>
         </td>
         <td>
-          <button className='btn btn-xs btn-success'>Pay</button>
+          <Link to={`/payment/${_id}`} className='btn btn-xs btn-success'>
+            Pay
+          </Link>
         </td>
       </tr>
     </>
