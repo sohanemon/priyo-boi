@@ -3,7 +3,7 @@ import { server } from "../../lib/axios-client";
 
 export const ProductCard = ({ bookName, image, available, _id, refetch }) => {
   const handleAd = () => {
-    toast.promise(server.get(`/ad/${_id}`), {
+    toast.promise(server.put(`/ad/${_id}`), {
       loading: "sending",
       success: "added to homepage",
       error: "try again",

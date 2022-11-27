@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { server } from "../lib/axios-client";
 
 const useCategory = () => {
-  const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    server.get("categories").then((res) => setCategories(res.data));
+  const { data } = useQuery(["categories"], () => server.get("categories"));
 
-    return () => {};
-  }, []);
-  return categories;
+  return data?.data;
 };
 
 export default useCategory;

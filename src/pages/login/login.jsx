@@ -52,7 +52,6 @@ const Login = ({ reg }) => {
       .catch((err) => {
         setFirebaseError(sliceFirebaseError(err));
         setLoading(false);
-        window.location.pathname = "/";
       });
   };
   const handleGoogleLogin = (e) => {
