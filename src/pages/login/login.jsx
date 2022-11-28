@@ -12,7 +12,7 @@ const Login = ({ reg }) => {
   const [firebaseError, setFirebaseError] = useState("");
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
-  const token = useJwt(email);
+  useJwt(email);
 
   const {
     register,
@@ -53,9 +53,9 @@ const Login = ({ reg }) => {
                 typeOfUser: data.typeOfUser,
                 location: data.location,
               })
-              .then((res) => {
+              .then(() => {
                 setLoading(false);
-                setEmail(res.user.email);
+                setEmail(data.email);
                 window.location.pathname = "/";
               });
           });
