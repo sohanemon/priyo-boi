@@ -28,6 +28,7 @@ const AuthProvider = ({ children }) => {
         });
       } else {
         console.log("no previous user found");
+        setLoading(false);
       }
     });
     return () => {

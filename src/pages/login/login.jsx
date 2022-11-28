@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/auth-provider";
+import useJwt from "../../hooks/use-Jwt";
 import { server } from "../../lib/axios-client";
 import sliceFirebaseError from "../../utils/slice-error";
 
@@ -10,6 +11,9 @@ const Login = ({ reg }) => {
   const { emailSignUp, emailLogin, googleLogin } = useAuth();
   const [firebaseError, setFirebaseError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const token = useJwt(email);
+
   const {
     register,
     handleSubmit,
@@ -20,8 +24,14 @@ const Login = ({ reg }) => {
     setFirebaseError("");
     if (!reg) {
       emailLogin(data)
-        .then(() => {})
-        .catch((err) => setFirebaseError(sliceFirebaseError(err)));
+        .then((res) => {
+          setEmail(res.user.email);
+          setLoading(false);
+        })
+        .catch((err) => {
+          setFirebaseError(sliceFirebaseError(err));
+          setLoading(false);
+        });
       return;
     }
     emailSignUp(data)
@@ -45,6 +55,7 @@ const Login = ({ reg }) => {
               })
               .then((res) => {
                 setLoading(false);
+                setEmail(res.user.email);
                 window.location.pathname = "/";
               });
           });
