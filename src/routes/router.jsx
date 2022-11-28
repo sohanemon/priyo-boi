@@ -12,6 +12,7 @@ import MyWishlist from "../pages/dashboard/my-wishlist";
 import ReportedItems from "../pages/dashboard/reported-items";
 import Home from "../pages/home";
 import Login from "../pages/login/login";
+import NotFound from "../pages/not-found";
 import Payment from "../pages/payment/payment";
 import AdminRoute from "./admin-route";
 import PrivateRoute from "./private-route";
@@ -20,6 +21,7 @@ import SellerRoute from "./seller-route";
 const router = createBrowserRouter([
   {
     path: "/",
+    errorElement: <NotFound />,
     element: <Main />,
     children: [
       {

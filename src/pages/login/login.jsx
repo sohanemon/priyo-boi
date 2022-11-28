@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/auth-provider";
 import useJwt from "../../hooks/use-Jwt";
 import { server } from "../../lib/axios-client";
@@ -19,6 +19,9 @@ const Login = ({ reg }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
+  const { state } = useLocation();
+
   const onSubmit = (data) => {
     setLoading(true);
     setFirebaseError("");
@@ -26,6 +29,7 @@ const Login = ({ reg }) => {
       emailLogin(data)
         .then((res) => {
           setEmail(res.user.email);
+          navigate(state || "/", { replace: true });
           setLoading(false);
         })
         .catch((err) => {
@@ -54,6 +58,7 @@ const Login = ({ reg }) => {
                 location: data.location,
               })
               .then(() => {
+                navigate(state || "/", { replace: true });
                 setLoading(false);
                 setEmail(data.email);
                 window.location.pathname = "/";
@@ -79,6 +84,7 @@ const Login = ({ reg }) => {
             typeOfUser: "buyer",
           })
           .then((res) => {
+            navigate(state || "/", { replace: true });
             setLoading(false);
           });
       })

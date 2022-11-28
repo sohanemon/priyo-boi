@@ -25,9 +25,7 @@ const Modal = ({ _id, addedBy, resalePrice, setShowModal }) => {
         className='modal modal-bottom sm:modal-middle'
       >
         <div className='modal-box'>
-          <h3 className='font-bold text-lg'>
-            Congratulations random Internet user!
-          </h3>
+          <h3 className='font-bold text-lg'>One more step to order</h3>
           <div className='form-control'>
             <label className='label'>
               <span className='label-text'>Name</span>
