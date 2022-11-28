@@ -4,7 +4,7 @@ import { server } from "../lib/axios-client";
 
 const useUser = (query) => {
   const { user } = useAuth();
-  const { data, refetch, isLoading } = useQuery([JSON.stringify(query)], () =>
+  const { data, refetch } = useQuery([JSON.stringify(query)], () =>
     server.post(`users?role=${query}`, { email: user?.email })
   );
 

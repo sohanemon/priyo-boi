@@ -5,7 +5,7 @@ const Header = () => {
   const { user, logOut } = useAuth();
   return (
     <>
-      <div className='navbar bg-base-100 '>
+      <div className='navbar bg-base-100 md:px-10'>
         <div className='navbar-start'>
           <div className='dropdown'>
             <label tabIndex={0} className='btn btn-ghost lg:hidden'>
@@ -58,8 +58,8 @@ export default Header;
 const navItem = (
   <>
     <li>
-      <a>Item 3</a>
-    </li>{" "}
+      <Link to='/blogs'>Blogs</Link>
+    </li>
     <li>
       <Link to='/dashboard'>Dashboard</Link>
     </li>

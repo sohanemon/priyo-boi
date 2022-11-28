@@ -18,7 +18,7 @@ export const Card = ({
   const [showModal, setShowModal] = useState(false);
   return (
     <>
-      <div className='card card-side bg-base-100 shadow-xl'>
+      <div className='card md:card-side bg-base-100 shadow-xl'>
         <figure>
           <img src={image} className='w-96 h-full object-cover' alt='Movie' />
         </figure>

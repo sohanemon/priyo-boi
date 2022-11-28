@@ -10,7 +10,7 @@ const Categories = () => {
     <>
       <Heading desc='Browse books by categories '>Categories</Heading>
 
-      <div className='grid grid-cols-4 gap-5'>
+      <div className='grid grid-cols-2 md:grid-cols-4 gap-5'>
         {categories?.map((_) => (
           <Card key={_._id} {..._} />
         ))}

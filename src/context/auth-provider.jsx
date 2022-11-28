@@ -38,7 +38,7 @@ const AuthProvider = ({ children }) => {
 
   const logOut = () => {
     signOut(auth).then(() => setUser({}));
-    localStorage.clear();
+    // localStorage.clear();
   };
 
   const googleLogin = () => {

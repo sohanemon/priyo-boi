@@ -1,10 +1,11 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/auth-provider";
 import useJwt from "../../hooks/use-Jwt";
 import { server } from "../../lib/axios-client";
+import generateJwt from "../../utils/generate-jwt";
 import sliceFirebaseError from "../../utils/slice-error";
 
 const Login = ({ reg }) => {
@@ -12,7 +13,7 @@ const Login = ({ reg }) => {
   const [firebaseError, setFirebaseError] = useState("");
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
-  useJwt(email);
+  // useJwt(email);
 
   const {
     register,
@@ -29,8 +30,9 @@ const Login = ({ reg }) => {
       emailLogin(data)
         .then((res) => {
           setEmail(res.user.email);
-          navigate(state || "/", { replace: true });
+          generateJwt(res.user.email);
           setLoading(false);
+          navigate(state || "/", { replace: true });
         })
         .catch((err) => {
           setFirebaseError(sliceFirebaseError(err));
@@ -58,9 +60,10 @@ const Login = ({ reg }) => {
                 location: data.location,
               })
               .then(() => {
-                navigate(state || "/", { replace: true });
                 setLoading(false);
+                generateJwt(res.user.email);
                 setEmail(data.email);
+                navigate(state || "/", { replace: true });
                 window.location.pathname = "/";
               });
           });
@@ -84,8 +87,10 @@ const Login = ({ reg }) => {
             typeOfUser: "buyer",
           })
           .then((res) => {
-            navigate(state || "/", { replace: true });
+            generateJwt(res.user.email);
+            setEmail(res.user.email);
             setLoading(false);
+            navigate(state || "/", { replace: true });
           });
       })
       .catch((err) => setFirebaseError(sliceFirebaseError(err)));

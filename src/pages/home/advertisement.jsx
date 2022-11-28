@@ -13,7 +13,7 @@ const Advertisement = () => {
         <Heading desc='Get the greatest deals with awesome books'>
           Best Deals
         </Heading>
-        <div className='grid grid-cols-3 gap-5'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
           {data.data.map((_) => (
             <Card key={_._id} {..._} />
           ))}
