@@ -13,6 +13,7 @@ import ReportedItems from "../pages/dashboard/reported-items";
 import Home from "../pages/home";
 import Login from "../pages/login/login";
 import Payment from "../pages/payment/payment";
+import PrivateRoute from "./private-route";
 
 const router = createBrowserRouter([
   {
@@ -33,7 +34,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <Dashboard></Dashboard>,
+        element: (
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        ),
         children: [
           {
             path: "/dashboard/add-product",

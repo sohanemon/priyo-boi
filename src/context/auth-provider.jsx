@@ -34,13 +34,6 @@ const AuthProvider = ({ children }) => {
       unsubscribe();
     };
   }, []);
-  const generateToken = (email) => {
-    axios
-      .post(`${process.env.REACT_APP_host}/jwt`, { email })
-      .then((res) =>
-        localStorage.setItem("genius-car-token", JSON.stringify(res.data))
-      );
-  };
 
   const logOut = () => {
     signOut(auth).then(() => setUser({}));
