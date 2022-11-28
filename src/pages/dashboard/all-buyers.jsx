@@ -2,7 +2,7 @@ import { UserTable } from "../../components/user-table";
 import useUser from "../../hooks/use-user";
 
 const AllBuyers = () => {
-  const { data: seller, refetch } = useUser("buyer");
+  const { data: seller, refetch, isLoading } = useUser("buyer");
 
   return (
     <div>
@@ -17,9 +17,10 @@ const AllBuyers = () => {
             </tr>
           </thead>
           <tbody>
-            {seller?.map((_, i) => (
-              <UserTable i={i} key={_._id} {..._} refetch={refetch} />
-            ))}
+            {!isLoading &&
+              seller?.map((_, i) => (
+                <UserTable i={i} key={_._id} {..._} refetch={refetch} />
+              ))}
           </tbody>
         </table>
       </div>

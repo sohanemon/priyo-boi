@@ -1,6 +1,6 @@
-import { useAuth } from "../context/auth-provider";
-import placeOrder from "../utils/place-order";
-
+import { useState } from "react";
+import BlueTick from "../components/blue-tick";
+import Modal from "./ui/modal";
 export const Card = ({
   _id,
   bookName,
@@ -13,8 +13,9 @@ export const Card = ({
   location,
   condition,
   yearOfPurchase,
+  user: dbUser,
 }) => {
-  const { user } = useAuth();
+  const [showModal, setShowModal] = useState(false);
   return (
     <>
       <div className='card card-side bg-base-100 shadow-xl'>
@@ -23,7 +24,10 @@ export const Card = ({
         </figure>
         <div className='card-body'>
           <h2 className='card-title'>{bookName}</h2>
-          <p>Posted by: {addedBy}</p>
+          <p className=''>
+            Added by: {addedBy}{" "}
+            <span>{dbUser[0]?.verified && <BlueTick />}</span>
+          </p>
           <div className='flex w-max gap-20'>
             <p>Price: {resalePrice}</p> <p>Original price: {originalPrice}</p>
           </div>
@@ -32,22 +36,23 @@ export const Card = ({
           <p>Location: {location}</p>
           <p>Published on: {date}</p>
           <div className='card-actions justify-end'>
-            <button
+            <label
+              htmlFor='order-modal'
               className='btn btn-primary btn-sm'
-              onClick={() =>
-                placeOrder(
-                  _id,
-                  addedBy,
-                  resalePrice,
-                  user?.email,
-                  user?.typeOfUser
-                )
-              }
+              onClick={() => setShowModal(true)}
             >
               Order now
-            </button>
+            </label>
           </div>
         </div>
+        {showModal && (
+          <Modal
+            _id={_id}
+            addedBy={addedBy}
+            resalePrice={resalePrice}
+            setShowModal={setShowModal}
+          />
+        )}
       </div>
     </>
   );

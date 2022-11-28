@@ -13,7 +13,9 @@ import ReportedItems from "../pages/dashboard/reported-items";
 import Home from "../pages/home";
 import Login from "../pages/login/login";
 import Payment from "../pages/payment/payment";
+import AdminRoute from "./admin-route";
 import PrivateRoute from "./private-route";
+import SellerRoute from "./seller-route";
 
 const router = createBrowserRouter([
   {
@@ -46,15 +48,27 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/dashboard/add-product",
-            element: <AddProduct />,
+            element: (
+              <SellerRoute>
+                <AddProduct />
+              </SellerRoute>
+            ),
           },
           {
             path: "/dashboard/my-products",
-            element: <MyProducts />,
+            element: (
+              <SellerRoute>
+                <MyProducts />
+              </SellerRoute>
+            ),
           },
           {
             path: "/dashboard/my-buyers",
-            element: <MyBuyers />,
+            element: (
+              <SellerRoute>
+                <MyBuyers />
+              </SellerRoute>
+            ),
           },
           {
             path: "/dashboard/my-orders",
@@ -62,15 +76,27 @@ const router = createBrowserRouter([
           },
           {
             path: "/dashboard/all-sellers",
-            element: <AllSellers />,
+            element: (
+              <AdminRoute>
+                <AllSellers />
+              </AdminRoute>
+            ),
           },
           {
             path: "/dashboard/all-buyers",
-            element: <AllBuyers />,
+            element: (
+              <AdminRoute>
+                <AllBuyers />
+              </AdminRoute>
+            ),
           },
           {
             path: "/dashboard/reported",
-            element: <ReportedItems />,
+            element: (
+              <AdminRoute>
+                <ReportedItems />
+              </AdminRoute>
+            ),
           },
           {
             path: "/dashboard/my-wishlist",

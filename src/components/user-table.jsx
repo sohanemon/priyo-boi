@@ -1,4 +1,5 @@
 import React from "react";
+import toast from "react-hot-toast";
 import { server } from "../lib/axios-client";
 export function UserTable({
   i,
@@ -11,10 +12,22 @@ export function UserTable({
   verified,
 }) {
   const handleDeleteUser = () => {
-    server.delete(`user/${uid}`).then(() => refetch());
+    toast
+      .promise(server.delete(`user/${uid}`), {
+        loading: "Deleting",
+        success: "Successfully deleted",
+        error: "try again",
+      })
+      .then(() => refetch());
   };
   const handleVerifyUser = () => {
-    server.put(`user/${uid}`).then((_) => refetch());
+    toast
+      .promise(server.put(`user/${uid}`), {
+        loading: "Verifying",
+        success: "Successfully verified",
+        error: "try again",
+      })
+      .then((_) => refetch());
   };
 
   return (

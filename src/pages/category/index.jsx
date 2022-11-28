@@ -8,7 +8,7 @@ const Category = () => {
   useToTop();
   const { id } = useParams();
   const { category, data: books } = useCategorizedBooks(id);
-
+  console.log(books, category);
   return (
     <section className='w-4/5 mx-auto'>
       <Heading>{category?.name}</Heading>
