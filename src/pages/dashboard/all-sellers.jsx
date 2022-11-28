@@ -1,8 +1,9 @@
+import Loader from "../../components/ui/loader";
 import { UserTable } from "../../components/user-table";
 import useUser from "../../hooks/use-user";
 
 const AllSellers = () => {
-  const { data: seller, refetch } = useUser("seller");
+  const { data: seller, refetch, isLoading } = useUser("seller");
 
   return (
     <div>
@@ -18,9 +19,16 @@ const AllSellers = () => {
             </tr>
           </thead>
           <tbody>
-            {seller?.map((_, i) => (
-              <UserTable i={i} key={_._id} {..._} refetch={refetch} seller />
-            ))}
+            {!isLoading ? (
+              seller?.map((_, i) => (
+                <UserTable i={i} key={_._id} {..._} refetch={refetch} seller />
+              ))
+            ) : (
+              <>
+                <td></td>
+                <td></td> <Loader />
+              </>
+            )}
           </tbody>
         </table>
       </div>
