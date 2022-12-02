@@ -1,13 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 import ProductTable from "../../components/product-table";
+import Loader from "../../components/ui/loader";
 import { useAuth } from "../../context/auth-provider";
 import { server } from "../../lib/axios-client";
 
 const MyOrders = () => {
   const { user } = useAuth();
-  const { data, refetch } = useQuery(["my-orders"], () =>
+  const { data, refetch, isLoading } = useQuery(["my-orders"], () =>
     server.get(`order?email=${user?.email}`)
   );
+
   console.log(data?.data);
   return (
     <>
@@ -24,9 +27,16 @@ const MyOrders = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.data?.map((_, i) => (
-                <ProductTable i={i} key={_._id} {..._} refetch={refetch} />
-              ))}
+              {!isLoading ? (
+                data?.data?.map((_, i) => (
+                  <ProductTable i={i} key={_._id} {..._} refetch={refetch} />
+                ))
+              ) : (
+                <tr>
+                  <td></td>
+                  <Loader />
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

@@ -24,10 +24,10 @@ const AllSellers = () => {
                 <UserTable i={i} key={_._id} {..._} refetch={refetch} seller />
               ))
             ) : (
-              <>
+              <tr>
                 <td></td>
                 <td></td> <Loader />
-              </>
+              </tr>
             )}
           </tbody>
         </table>
